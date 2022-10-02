@@ -4,17 +4,9 @@ import '../pick_json_exception.dart';
 extension IntExtensionPick on Pick {
   int get asIntorThrow {
     try {
-      final data = int.tryParse(value.toString());
-      if (data != null) {
-        return data;
-      }
-      throw NullValueException(message: 'field $keys: is null');
+      return int.parse(value.toString());
     } catch (e) {
-      if (e is NullValueException) {
-        rethrow;
-      } else {
-        throw WrongFormatException(message: 'field $keys: is not int');
-      }
+      throw WrongFormatException(message: 'field $keys: is not int');
     }
   }
 
@@ -33,7 +25,7 @@ extension IntExtensionPick on Pick {
         return data;
       }
       if (initialValue != null) {
-        return int.tryParse(initialValue.toString())!;
+        return int.parse(initialValue.toString());
       }
       throw WrongInitialValueException(
           message: 'field $keys: initial value is null');

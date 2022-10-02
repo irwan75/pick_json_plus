@@ -4,13 +4,9 @@ import '../pick_json_exception.dart';
 extension DoubleExtensionPick on Pick {
   double get asDoubleorThrow {
     try {
-      final data = double.tryParse(value.toString());
-      if (data != null) {
-        return data;
-      }
-      throw NullValueException(message: 'field $keys: is null');
+      return double.parse(value.toString());
     } catch (e) {
-      throw FormatException('field $keys: is not double');
+      throw WrongFormatException(message: 'field $keys: is not double');
     }
   }
 
@@ -29,7 +25,7 @@ extension DoubleExtensionPick on Pick {
         return data;
       }
       if (initialValue != null) {
-        return double.tryParse(initialValue.toString())!;
+        return double.parse(initialValue.toString());
       }
       throw WrongInitialValueException(
           message: 'field $keys: initial value is null');
